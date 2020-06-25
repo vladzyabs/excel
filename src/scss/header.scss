@@ -1,0 +1,39 @@
+@import "variables";
+@import "mixins";
+
+.excel__header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: $header-height;
+  padding: 3px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & .header__input {
+    margin: 0;
+    padding: 3px 7px;
+    height: 20px;
+    outline: none;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    color: $black-color;
+    font-size: 18px;
+    line-height: 22px;
+
+    &:hover {
+      border: 1px solid $gray-color;
+    }
+
+    &:focus {
+      border: 2px solid $blue-color;
+    }
+  }
+
+  & .header__button {
+    @include button($red-color)
+  }
+
+}

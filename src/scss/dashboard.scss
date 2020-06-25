@@ -1,0 +1,98 @@
+@import "variables";
+@import "mixins";
+
+.db {
+  .db__header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: $db-header-height;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 5px 2px rgba(60, 64, 67, 0.15);
+    z-index: 999;
+
+    h1 {color: $accent-color}
+  }
+
+  .db__new {
+    margin-top: $db-header-height;
+    padding: 20px;
+    background: #dadce0;
+  }
+  .db__view {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  .db__create {
+    width: 160px;
+    height: 160px;
+    background: $white-color;
+    border-radius: 5px;
+    border: 2px solid #dadce0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    color: #111;
+    text-decoration: none;
+    transition: 0.3s;
+
+    &:hover {
+      border: 2px solid $accent-color;
+      color: $accent-color;
+    }
+    span {
+      font-size: 60px;
+    }
+  }
+
+  .db__table {
+    padding: 20px;
+  }
+  .db__list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #202124;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    padding: 0 10px;
+
+    span:last-child {
+      text-align: right;
+      margin-left: 20px;
+    }
+  }
+  .db__list {
+    @include clear-list();
+  }
+  .db__record {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 10px;
+    margin-bottom: 7px;
+
+    &:hover {
+      border-radius: 25px;
+      background: #e6f4ea;
+    }
+
+    a {
+      text-decoration: none;
+      cursor: pointer;
+      color: #202124;
+      font-size: 14px;
+
+      &:hover {
+        text-decoration: underline;
+        color: $accent-color;
+      }
+    }
+  }
+}

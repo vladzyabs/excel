@@ -8,7 +8,10 @@
   "rules": {
     "semi": "off",
     "arrow-parens": "off",
-    "require-jsdoc": "off"
+    "require-jsdoc": "off",
+    "indent": "off",
+    "operator-linebreak": "off",
+    "max-len": "off"
   },
   "extends": [
     "eslint:recommended",

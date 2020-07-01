@@ -14,8 +14,11 @@
     flex-direction: row;
     justify-content: flex-start;
     height: $row-height;
+    min-height: 15px;
   }
+
   .row-info {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,10 +28,13 @@
     background: $background-table-info;
     border-top: none;
   }
+
   .row-data {
     display: flex;
   }
+
   .column {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -40,6 +46,34 @@
     border-top: none;
     border-left: none;
   }
+
+  .col-resize, .row-resize {
+    position: absolute;
+    background: $blue-color;
+    opacity: 0;
+    z-index: 1000;
+
+    &:hover {
+      opacity: 1 !important;
+    }
+  }
+
+  .col-resize {
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 3px;
+    cursor: col-resize;
+  }
+
+  .row-resize {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    cursor: row-resize;
+  }
+
   .cell {
     min-width: $cell-min-width;
     width: $cell-width;
@@ -52,6 +86,7 @@
     white-space: nowrap;
     outline: none;
   }
+
   .selected {
     border: none;
     outline: 2px solid #1a73e8;

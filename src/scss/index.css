@@ -127,6 +127,7 @@
   flex-direction: row;
   justify-content: flex-start;
   height: 24px;
+  min-height: 15px;
 }
 .excel__table .row-info {
   position: relative;
@@ -159,9 +160,10 @@
   position: absolute;
   background: #1a73e8;
   opacity: 0;
+  z-index: 1000;
 }
 .excel__table .col-resize:hover, .excel__table .row-resize:hover {
-  opacity: 1;
+  opacity: 1 !important;
 }
 .excel__table .col-resize {
   top: 0;

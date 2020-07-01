@@ -21,8 +21,8 @@ function toColumn(content, index) {
 function createRow(index, content) {
     const resize = index ? `<div class="row-resize" data-resize="row"></div>` : ``
     return `
-        <div class="row">
-            <div class="row-info" class="column" data-type="resizable">
+        <div class="row" data-type="resizable">
+            <div class="row-info" class="column">
                 ${index ? index : ''}
                 ${resize}
             </div>
@@ -35,7 +35,7 @@ function toChar(_, index) {
     return String.fromCharCode(CODES.A + index)
 }
 
-export function creatTable(rowsCount = 26) {
+export function creatTable(rowsCount = 30) {
     const colsCount = CODES.Z - CODES.A + 1
     const rows = []
     const cols = new Array(colsCount)

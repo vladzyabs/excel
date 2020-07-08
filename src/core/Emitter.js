@@ -1,4 +1,4 @@
-class Emittor {
+class Emitter {
     constructor() {
         this.listeners = {}
     }

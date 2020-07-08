@@ -27,10 +27,3 @@ class Emittor {
         }
     }
 }
-
-const emittor = new Emittor()
-const unsub = emittor.subscribe('vlad', data => console.log(data))
-emittor.emit('123', 23)
-setTimeout(() => emittor.emit('vlad', 'set 2 seconds'), 2000)
-setTimeout(() => unsub(), 3000)
-setTimeout(() => emittor.emit('vlad', 'set 4 seconds'), 4000)

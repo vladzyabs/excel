@@ -4,6 +4,7 @@ import {resizeHandler} from '@/components/table/table.resize';
 import {isCell, matrix, nextSelect, shouldResize} from '@/components/table/table.function';
 import {TableSelection} from '@/components/table/TableSelection';
 import {$} from '@core/dom';
+import * as actions from '@/redux/actions'
 
 export class Table extends ExcelComponent {
     static className = 'excel__table'
@@ -34,6 +35,7 @@ export class Table extends ExcelComponent {
         this.$on('formula:done', () => {
             this.slection.carrent.focus()
         })
+        // this.$subscribe(state => console.log('table state', state))
     }
 
     selectCell($cell) {
@@ -41,9 +43,18 @@ export class Table extends ExcelComponent {
         this.$emit('table:select', $cell)
     }
 
+    async resizeTable(event) {
+        try {
+            const data = await resizeHandler(this.$root, event)
+            this.$dispatch(actions.tableResize(data))
+        } catch (e) {
+            console.warn('Resize error', e.message)
+        }
+    }
+
     onMousedown(event) {
         if (shouldResize(event)) {
-            resizeHandler(this.$root, event)
+            this.resizeTable(event)
         } else if (isCell(event)) {
             const $target = $(event.target)
             if (event.shiftKey) {
@@ -51,7 +62,7 @@ export class Table extends ExcelComponent {
                     .map(id => this.$root.find(`[data-id="${id}"]`))
                 this.slection.selectGroup($cells)
             } else {
-                this.slection.select($target)
+                this.selectCell($target)
             }
         }
     }

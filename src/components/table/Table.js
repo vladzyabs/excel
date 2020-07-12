@@ -31,6 +31,7 @@ export class Table extends ExcelComponent {
         this.selectCell($cell)
         this.$on('formula:input', text => {
             this.slection.carrent.text(text)
+            this.updateTextInStore(text)
         })
         this.$on('formula:done', () => {
             this.slection.carrent.focus()
@@ -85,7 +86,15 @@ export class Table extends ExcelComponent {
         }
     }
 
+    updateTextInStore(value) {
+        this.$dispatch(actions.changeText({
+            id: this.slection.carrent.id(),
+            value: value,
+        }))
+    }
+
     onInput(event) {
-        this.$emit('table:input', $(event.target))
+        // this.$emit('table:input', $(event.target))
+        this.updateTextInStore($(event.target).text())
     }
 }

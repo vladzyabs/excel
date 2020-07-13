@@ -23,7 +23,7 @@ export class Table extends ExcelComponent {
     }
 
     prepare() {
-        this.slection = new TableSelection()
+        this.selection = new TableSelection()
     }
 
     init() {
@@ -31,21 +31,27 @@ export class Table extends ExcelComponent {
         const $cell = this.$root.find('[data-id="0:0"]')
         this.selectCell($cell)
         this.$on('formula:input', text => {
-            this.slection.carrent.text(text)
+            this.selection.carrent.text(text)
             this.updateTextInStore(text)
         })
         this.$on('formula:done', () => {
-            this.slection.carrent.focus()
+            this.selection.carrent.focus()
         })
-        this.$on('tollbar:applyStyle', style => {
-            this.slection.applyStyle(style)
+        this.$on('tollbar:applyStyle', value => {
+            this.selection.applyStyle(value)
+            this.$dispatch(actions.applyStyle({
+                value,
+                ids: this.selection.selectedIds,
+            }))
         })
     }
 
     selectCell($cell) {
-        this.slection.select($cell)
+        this.selection.select($cell)
         this.$emit('table:select', $cell)
-        console.log($cell.getStyles(Object.keys(defaultsStyles)))
+        const styles = $cell.getStyles(Object.keys(defaultsStyles))
+        this.$dispatch(actions.changeStyles(styles))
+        console.log(styles)
     }
 
     async resizeTable(event) {
@@ -63,9 +69,9 @@ export class Table extends ExcelComponent {
         } else if (isCell(event)) {
             const $target = $(event.target)
             if (event.shiftKey) {
-                const $cells = matrix($target, this.slection.carrent)
+                const $cells = matrix($target, this.selection.carrent)
                     .map(id => this.$root.find(`[data-id="${id}"]`))
-                this.slection.selectGroup($cells)
+                this.selection.selectGroup($cells)
             } else {
                 this.selectCell($target)
             }
@@ -84,7 +90,7 @@ export class Table extends ExcelComponent {
         const {key} = event
         if (keys.includes(key) && !event.shiftKey) {
             event.preventDefault()
-            const id = this.slection.carrent.id(true)
+            const id = this.selection.carrent.id(true)
             const $next = this.$root.find(nextSelect(key, id))
             this.selectCell($next)
         }
@@ -92,7 +98,7 @@ export class Table extends ExcelComponent {
 
     updateTextInStore(value) {
         this.$dispatch(actions.changeText({
-            id: this.slection.carrent.id(),
+            id: this.selection.carrent.id(),
             value: value,
         }))
     }

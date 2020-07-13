@@ -1,39 +1,39 @@
-export function createToolbar() {
+export function createToolbar(state) {
     const buttons = [
         {
             icon: 'format_bold',
-            active: false,
-            value: {fontWeight: 'bold'},
+            active: state['fontWeight'] === 'bold',
+            value: {fontWeight: state['fontWeight'] === 'bold' ? 'normal' : 'bold'},
         },
         {
             icon: 'format_italic',
-            active: false,
-            value: {fontStyle: 'italic'},
+            active: state['fontStyle'] === 'italic',
+            value: {fontStyle: state['fontStyle'] === 'italic' ? 'normal' : 'italic'},
         },
         {
             icon: 'format_strikethrough',
-            active: false,
-            value: {textDecoration: 'line-through'},
+            active: state['textDecoration'] === 'line-through',
+            value: {textDecoration: state['textDecoration'] === 'line-through' ? 'none' : 'line-through'},
         },
         {
             icon: 'format_underlined',
-            active: false,
-            value: {textDecoration: 'underline'},
+            active: state['textDecoration'] === 'underline',
+            value: {textDecoration: state['textDecoration'] === 'underline' ? 'none' : 'underline'},
         },
         {
             icon: 'format_align_left',
-            active: false,
+            active: state['textAlign'] === 'left',
             value: {textAlign: 'left'},
         },
         {
             icon: 'format_align_center',
-            active: false,
-            value: {textAlign: 'center'},
+            active: state['textAlign'] === 'center',
+            value: {textAlign: state['textAlign'] === 'center' ? 'left' : 'center'},
         },
         {
             icon: 'format_align_right',
-            active: false,
-            value: {textAlign: 'right'},
+            active: state['textAlign'] === 'right',
+            value: {textAlign: state['textAlign'] === 'right' ? 'left' : 'right'},
         },
     ]
     return buttons.map(toButton).join('')

@@ -1,8 +1,9 @@
-import {ExcelComponent} from '@core/ExcelComponent';
+import {ExcelStatComponent} from '@core/ExcelStatComponent';
 import {createToolbar} from '@/components/toolbar/toolbar.template';
 import {$} from '@core/dom';
+import {defaultsStyles} from '@/constants';
 
-export class Toolbar extends ExcelComponent {
+export class Toolbar extends ExcelStatComponent {
     static className = 'excel__toolbar'
 
     constructor($root, options) {
@@ -13,14 +14,25 @@ export class Toolbar extends ExcelComponent {
         });
     }
 
+    prepare() {
+        this.initState(defaultsStyles)
+    }
+
+    get template() {
+        return createToolbar(this.state)
+    }
+
     toHTML() {
-        return createToolbar()
+        return this.template
     }
 
     onClick(event) {
         const $target = $(event.target)
         if ($target.data.type === 'button') {
-            console.log($target.text())
+            const value = JSON.parse($target.data.value)
+            this.$emit('tollbar:applyStyle', value)
+            const key = Object.keys(value)[0]
+            this.setState({[key]: value[key]})
         }
     }
 }

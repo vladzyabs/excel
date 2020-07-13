@@ -51,7 +51,6 @@ export class Table extends ExcelComponent {
         this.$emit('table:select', $cell)
         const styles = $cell.getStyles(Object.keys(defaultsStyles))
         this.$dispatch(actions.changeStyles(styles))
-        console.log(styles)
     }
 
     async resizeTable(event) {

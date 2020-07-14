@@ -1,5 +1,6 @@
 import {toInlineStyles} from '@core/utils';
 import {defaultsStyles} from '@/constants';
+import {parse} from '@core/parse';
 
 const CODES = {
     A: 65,
@@ -32,7 +33,8 @@ function toCell(state, row) {
             contenteditable 
             data-type="cell" 
             data-col="${col}" 
-            data-id="${id}">${data || ''}</div>
+            data-value="${data || ''}"
+            data-id="${id}">${parse(data) || ''}</div>
         `
     }
 }

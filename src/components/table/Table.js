@@ -6,6 +6,7 @@ import {TableSelection} from '@/components/table/TableSelection';
 import {$} from '@core/dom';
 import * as actions from '@/redux/actions'
 import {defaultsStyles} from '@/constants';
+import {parse} from '@core/parse'
 
 export class Table extends ExcelComponent {
     static className = 'excel__table'
@@ -31,11 +32,13 @@ export class Table extends ExcelComponent {
         const $cell = this.$root.find('[data-id="0:0"]')
         this.selectCell($cell)
         this.$on('formula:input', text => {
-            this.selection.carrent.text(text)
+            this.selection.current
+                .attr('data-value', text)
+                .text(parse(text))
             this.updateTextInStore(text)
         })
         this.$on('formula:done', () => {
-            this.selection.carrent.focus()
+            this.selection.current.focus()
         })
         this.$on('tollbar:applyStyle', value => {
             this.selection.applyStyle(value)
@@ -68,7 +71,7 @@ export class Table extends ExcelComponent {
         } else if (isCell(event)) {
             const $target = $(event.target)
             if (event.shiftKey) {
-                const $cells = matrix($target, this.selection.carrent)
+                const $cells = matrix($target, this.selection.current)
                     .map(id => this.$root.find(`[data-id="${id}"]`))
                 this.selection.selectGroup($cells)
             } else {
@@ -89,7 +92,7 @@ export class Table extends ExcelComponent {
         const {key} = event
         if (keys.includes(key) && !event.shiftKey) {
             event.preventDefault()
-            const id = this.selection.carrent.id(true)
+            const id = this.selection.current.id(true)
             const $next = this.$root.find(nextSelect(key, id))
             this.selectCell($next)
         }
@@ -97,13 +100,12 @@ export class Table extends ExcelComponent {
 
     updateTextInStore(value) {
         this.$dispatch(actions.changeText({
-            id: this.selection.carrent.id(),
+            id: this.selection.current.id(),
             value: value,
         }))
     }
 
     onInput(event) {
-        // this.$emit('table:input', $(event.target))
         this.updateTextInStore($(event.target).text())
     }
 }

@@ -13,7 +13,6 @@ const store = createStore(rootReducer, initialState)
 
 const stateListener = debounce(state => {
     storage('excel-state', state)
-    console.log('app state: ', state)
 }, 300)
 
 store.subscribe(stateListener)

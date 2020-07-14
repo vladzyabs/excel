@@ -17,6 +17,7 @@
 
   &:active, &.active {
     color: $color;
+    border-bottom: 2px solid $color;
   }
 
   &:hover {

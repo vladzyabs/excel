@@ -44,6 +44,7 @@
 }
 .excel__header .header__button:active, .excel__header .header__button.active {
   color: #DC3E15;
+  border-bottom: 2px solid #DC3E15;
 }
 .excel__header .header__button:hover {
   cursor: pointer;
@@ -79,6 +80,7 @@
 }
 .excel__toolbar .toolbar__button:active, .excel__toolbar .toolbar__button.active {
   color: #1D6F42;
+  border-bottom: 2px solid #1D6F42;
 }
 .excel__toolbar .toolbar__button:hover {
   cursor: pointer;
